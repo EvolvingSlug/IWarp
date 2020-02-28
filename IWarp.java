@@ -53,7 +53,7 @@ public class IWarp {
 		displayApp();
 	}
 
-
+	
 	/**
 	 * TODO: Implement and document this method
 	 */
@@ -66,33 +66,47 @@ public class IWarp {
         //Code here
         //for loop to keep clickling
         for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
-
+            for (destCol = 0; destCol < imagePixels[destRow].length; destCol++) {
+				
                 //Difference between rowP0 and rowP1
-                double deltaRow = rowP0 - rowP1;
+                int deltaRow = rowP1 - rowP0;
                 //Difference between colP0 and colP1
-                double deltaCol = colP0 - colP1;
+                int deltaCol = colP1 - colP0;
                 //This gets the euclidean distance between(destRow,destCol)and (rowP1,colP1)
-                double distance = Math.sqrt((rowP1 - destRow) * (rowP1 - destRow) + (colP1 - destCol) * (colP1 - destCol));
+                double distance = computeDistance(destRow, destCol, rowP1, colP1);
                 //Weight to
                 double weight = Math.pow(2, -distance / normFactor);
-                double srcRow = destRow - (deltaCol * weight);
-                double srcCol = destCol - (deltaCol * weight);
+
+				int srcRow = (int) Math.round(destRow - (deltaRow * weight));
+				int srcCol = (int) Math.round(destCol - (deltaCol * weight));
 
                 //Rewrite a better if srcCol and srcRow
-                if (srcRow < 0) {
-                    srcRow = 0;
+                if (srcRow < 0 || srcCol < 0) {
+					if(srcRow < 0){
+						srcRow = 0;
+					
+					}
+					
+					if (srcCol < 0){
+						srcCol = 0;
+					}
                 }
-                if (imagePixels.length - 1 > srcRow) {
-                    srcRow = imagePixels.length;
+				
+				
+                if (imagePixels.length-1  < srcRow || imagePixels[0].length-1  < srcCol) {
+					if (imagePixels.length-1  < srcRow){
+						srcRow = imagePixels.length-1;
+					}
+					
+					if (imagePixels[0].length-1  < srcCol){
+						srcCol = imagePixels[0].length-1;
+					}
+					
                 }
-                if (srcCol < 0) {
-                    srcCol = 0;
-                }
-                if (imagePixels.length - 1 >= srcCol) {
-                    srcRow = imagePixels.length;
-                }
-                destination[destRow][destCol] = imagePixels[(int) srcRow][(int) srcCol];
+
+
+                destination[destRow][destCol] = imagePixels[srcRow][srcCol];
+
             }
         }
         updateImage(destination);
@@ -210,7 +224,7 @@ public class IWarp {
         Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
 
         for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
+            for (destCol = 0; destCol < imagePixels[(int)destRow].length; destCol++) {
                 //Code here
                 //Step 1
                 double maxDistDelta = -0.5;
