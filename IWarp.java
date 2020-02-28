@@ -188,7 +188,7 @@ public class IWarp {
         }
         updateImage(destination);
     }
-	}
+	
 
 	/**
 	 * TODO: Implement and document this method
@@ -205,8 +205,7 @@ public class IWarp {
 	/**
 	 * TODO: Implement and document this method
 	 */
-	public static void pinchEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
-	{
+	public static void pinchEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor) {
 		double row=0, col=0, destRow = 0,destCol=0;
         Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
 
@@ -248,13 +247,12 @@ public class IWarp {
         }
         updateImage(destination);
     }
-	}
+	
 
 	/**
 	 * TODO: Implement and document this method
 	 */
-	public static void bulgeEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
-	{
+	public static void bulgeEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor) {
 		double row=0, col=0, destRow = 0,destCol=0;
         Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
 
