@@ -169,27 +169,27 @@ public class IWarp {
 	public static void pinchEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
 	{
 		double row=0, col=0, destRow = 0,destCol=0;
-		Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
+		Color[][] DestinationImage = new Color[imagePixels.length][imagePixels[0].length];
 		//Code here
 		//Step 1
 		double maxDistDelta = -0.5;
 		//Step 3
-		double distance = Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol));
+		double distance = Math.sqrt((rowP0 - destRow) * ((double)rowP0 - destRow) + ((double)colP0 - destCol) * ((double)colP0 - destCol));
 		//Step 4
 		double weight = Math.pow(2,(-distance/normFactor));
 		//Step 5
-		double angle = Math.atan2(destRow - rowP0, destCol - colP0);
+		double angle = Math.atan2(destRow - (double)rowP0, destCol - (double)colP0);
 		//Step 6
 		double deltaDistance = maxDistDelta * distance;
 		//Step 7
 		double weightedDistance = distance - (weight * deltaDistance);
 		//Step 8
-		int scrRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
+		int srcRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
 		//Step 9
-		int scrCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
+		int srcCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
 		
-		DestinationImage[destRow][destCol] = imagePixel[srcRow][SrcCol];
-		updateImage(destination);
+		DestinationImage[(int)destRow][(int)destCol] = imagePixels[(int)srcRow][(int)srcCol];
+		updateImage(DestinationImage);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class IWarp {
 	public static void bulgeEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
 	{
 		double row=0, col=0, destRow = 0,destCol=0;
-		Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
+		Color[][] DestinationImage = new Color[imagePixels.length][imagePixels[0].length];
 		//Code here
 		//Step 1
 		double maxDistDelta = 0.5;
@@ -213,12 +213,12 @@ public class IWarp {
 		//Step 7
 		double weightedDistance = distance - (weight * deltaDistance);
 		//Step 8
-		int scrRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
+		int srcRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
 		//Step 9
-		int scrCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
+		int srcCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
 		
-		DestinationImage[destRow][destCol] = imagePixel[srcRow][SrcCol];
-		updateImage(destination);
+		DestinationImage[(int)destRow][(int)destCol] = imagePixels[srcRow][srcCol];
+		updateImage(DestinationImage);
 
 	}
 
