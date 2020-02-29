@@ -81,36 +81,45 @@ public class IWarp {
 				int srcCol = (int) Math.round(destCol - (deltaCol * weight));
 
                 //Rewrite a better if srcCol and srcRow
-                if (srcRow < 0 || srcCol < 0) {
-					if(srcRow < 0){
-						srcRow = 0;
-					
-					}
-					
-					if (srcCol < 0){
-						srcCol = 0;
-					}
-                }
+				int[] updatedValues = checkRowColValues(srcRow, srcCol, imagePixels);
+				srcRow = updatedValues[0];
+				srcCol = updatedValues[1];
 				
-				
-                if (imagePixels.length-1  < srcRow || imagePixels[0].length-1  < srcCol) {
-					if (imagePixels.length-1  < srcRow){
-						srcRow = imagePixels.length-1;
-					}
-					
-					if (imagePixels[0].length-1  < srcCol){
-						srcCol = imagePixels[0].length-1;
-					}
-					
-                }
-
-
                 destination[destRow][destCol] = imagePixels[srcRow][srcCol];
 
             }
         }
         updateImage(destination);
     }
+	public static int[] checkRowColValues(int srcRow, int srcCol, Color[][] imagePixels){
+		int[] updatedValues = new int[2];		         
+		 if (srcRow < 0 || srcCol < 0) {
+			if(srcRow < 0){
+				srcRow = 0;
+			
+			}
+			
+			if (srcCol < 0){
+				srcCol = 0;
+			}
+		}
+		
+		
+		if (imagePixels.length-1  < srcRow || imagePixels[0].length-1  < srcCol) {
+			if (imagePixels.length-1  < srcRow){
+				srcRow = imagePixels.length-1;
+			}
+			
+			if (imagePixels[0].length-1  < srcCol){
+				srcCol = imagePixels[0].length-1;
+			}
+			
+		}
+		updatedValues[0] = srcRow;
+		updatedValues[1] = srcCol;
+		return updatedValues;
+	}
+
 
 	/**
 	 * TODO: Implement and document this method
