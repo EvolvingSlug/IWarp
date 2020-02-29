@@ -120,39 +120,6 @@ public class IWarp {
 		return updatedValues;
 	}
 
-
-	/**
-	 * TODO: Implement and document this method
-	 */
-	public static int [] checkRowColValues(int srcRow, int srcCol, Color[][] imagePixels) {
-        int[] updatedValues = new int[2];
-        if (srcRow < 0 || srcCol < 0) {
-            if (srcRow < 0) {
-                srcRow = 0;
-
-            }
-
-            if (srcCol < 0) {
-                srcCol = 0;
-            }
-        }
-
-        if (imagePixels.length-1  < srcRow || imagePixels[0].length-1  < srcCol) {
-            if (imagePixels.length-1  < srcRow){
-                srcRow = imagePixels.length-1;
-            }
-
-            if (imagePixels[0].length-1  < srcCol){
-                srcCol = imagePixels[0].length-1;
-            }
-
-        }
-        updatedValues[0] = srcRow;
-        updatedValues[1] = srcCol;
-        return updatedValues;
-    }
-
-
     /**
      * TODO: Implement and document this method
      */
