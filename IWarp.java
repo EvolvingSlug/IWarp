@@ -124,54 +124,87 @@ public class IWarp {
 	/**
 	 * TODO: Implement and document this method
 	 */
-	public static void twistLeftEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
-	{
-		double row=0, col=0, destRow = 0,destCol=0;
+	public static int [] checkRowColValues(int srcRow, int srcCol, Color[][] imagePixels) {
+        int[] updatedValues = new int[2];
+        if (srcRow < 0 || srcCol < 0) {
+            if (srcRow < 0) {
+                srcRow = 0;
+
+            }
+
+            if (srcCol < 0) {
+                srcCol = 0;
+            }
+        }
+
+        if (imagePixels.length-1  < srcRow || imagePixels[0].length-1  < srcCol) {
+            if (imagePixels.length-1  < srcRow){
+                srcRow = imagePixels.length-1;
+            }
+
+            if (imagePixels[0].length-1  < srcCol){
+                srcCol = imagePixels[0].length-1;
+            }
+
+        }
+        updatedValues[0] = srcRow;
+        updatedValues[1] = srcCol;
+        return updatedValues;
+    }
+
+
+    /**
+     * TODO: Implement and document this method
+     */
+    public static void twistLeftEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
+    {
+
+        double row=0, col=0, destRow = 0,destCol=0;
         Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
 
         for (destRow = 0; destRow < imagePixels.length; destRow++) {
             for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
                 //Code here
                 //Step 1
-                double maxAngleDelta= Math.PI /2;
-                //Step 3
+                double maxAngleDelta= Math.PI /2;                //Step 3
                 double distance = Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol));
                 //Step 4
                 double weight = Math.pow(2, -distance / normFactor);
                 //Step 5
                 double angleDelta = maxAngleDelta * weight;
                 //Step 6
-                double newAngle = Math.atan2(row - rowP0, col - colP0);
+                double newAngle = Math.atan2(row - rowP0, col - colP0) + angleDelta;
                 //Step 7
-                double srcRow = rowP0+ Math.sin(angleDelta) *distance;
+                double srcRow = (rowP0 + Math.sin(newAngle) * distance);
                 //Step 8
-                double srcCol =colP0+ Math.sin(angleDelta) *distance;
+                double srcCol = (colP0 + Math.cos(newAngle) * distance);
 
-                //Rewrite a better if srcCol and srcRow
                 if (srcRow < 0) {
                     srcRow = 0;
                 }
-                if (imagePixels.length - 1 > srcRow) {
+                if ( imagePixels.length - 1 < srcRow) {
                     srcRow = imagePixels.length;
                 }
                 if (srcCol < 0) {
                     srcCol = 0;
                 }
-                if (imagePixels.length - 1 >= srcCol) {
+                if (imagePixels.length - 1 <= srcCol) {
                     srcRow = imagePixels.length;
                 }
-                destination[(int) destRow][(int)destCol] = imagePixels[(int) srcRow][(int) srcCol];
+
+                destination[(int) destRow][(int) destCol] = imagePixels[(int) srcRow][(int) srcCol];
             }
         }
         updateImage(destination);
     }
 
-	/**
-	 * TODO: Implement and document this method
-	 */
-	public static void twistRightEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
-	{
-		double row=0, col=0, destRow = 0,destCol=0;
+
+    /**
+     * TODO: Implement and document this method
+     */
+    public static void twistRightEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
+    {
+        double row=0, col=0, destRow = 0,destCol=0;
         Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
 
         for (destRow = 0; destRow < imagePixels.length; destRow++) {
@@ -186,24 +219,24 @@ public class IWarp {
                 //Step 5
                 double angleDelta = maxAngleDelta * weight;
                 //Step 6
-                double newAngle = Math.atan2(row - rowP0, col - colP0);
+                double newAngle = Math.atan2(row - rowP0, col - colP0) + angleDelta;
                 //Step 7
-                double srcRow = rowP0+ Math.sin(angleDelta) *distance;
+                double srcRow = (rowP0 + Math.sin(newAngle) * distance);
                 //Step 8
-                double srcCol =colP0+ Math.sin(angleDelta) *distance;
+                double srcCol = (colP0 + Math.cos(newAngle) * distance);
 
 
                 //Rewrite a better if srcCol and srcRow
                 if (srcRow < 0) {
                     srcRow = 0;
                 }
-                if (imagePixels.length - 1 > srcRow) {
+                if (imagePixels.length - 1 < srcRow) {
                     srcRow = imagePixels.length;
                 }
                 if (srcCol < 0) {
                     srcCol = 0;
                 }
-                if (imagePixels.length - 1 >= srcCol) {
+                if (imagePixels.length - 1 < srcCol) {
                     srcRow = imagePixels.length;
                 }
                 destination[(int)destRow][(int)destCol] = imagePixels[(int) srcRow][(int) srcCol];
@@ -212,7 +245,6 @@ public class IWarp {
         updateImage(destination);
     }
 	
-
 	/**
 	 * TODO: Implement and document this method
 	 */
