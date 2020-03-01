@@ -126,44 +126,6 @@ public class IWarp {
      */
     public static void twistLeftEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
     {
-		/*
-        double row=0, col=0, destRow = 0,destCol=0;
-        Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
-
-        for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
-                //Code here
-                //Step 1
-                double maxAngleDelta= Math.PI /2;                //Step 3
-                double distance = Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol));
-                //Step 4
-                double weight = Math.pow(2, -distance / normFactor);
-                //Step 5
-                double angleDelta = maxAngleDelta * weight;
-                //Step 6
-                double newAngle = Math.atan2(row - rowP0, col - colP0) + angleDelta;
-                //Step 7
-                double srcRow = (rowP0 + Math.sin(newAngle) * distance);
-                //Step 8
-                double srcCol = (colP0 + Math.cos(newAngle) * distance);
-
-                if (srcRow < 0) {
-                    srcRow = 0;
-                }
-                if ( imagePixels.length - 1 < srcRow) {
-                    srcRow = imagePixels.length;
-                }
-                if (srcCol < 0) {
-                    srcCol = 0;
-                }
-                if (imagePixels.length - 1 <= srcCol) {
-                    srcRow = imagePixels.length;
-                }
-
-                destination[(int) destRow][(int) destCol] = imagePixels[(int) srcRow][(int) srcCol];
-            }
-        }
-        updateImage(destination);*/
 		
 		//What if we reuse twist? Think of the unit circle
 		twistEffect(imagePixels, rowP0, colP0, normFactor, Math.PI / 2.0);
@@ -176,36 +138,6 @@ public class IWarp {
      */
     public static void twistRightEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor)
     {
-        /*double row=0, col=0, destRow = 0,destCol=0;
-        Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
-
-        for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
-                //Code here
-                //Step 1 check on the negative pi
-                double maxAngleDelta= -Math.PI /2;
-                //Step 3
-                double distance = Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol));
-                //Step 4
-                double weight = Math.pow(2, -distance / normFactor);
-                //Step 5
-                double angleDelta = maxAngleDelta * weight;
-                //Step 6
-                double newAngle = Math.atan2(row - rowP0, col - colP0) + angleDelta;
-                //Step 7
-                double srcRow = (rowP0 + Math.sin(newAngle) * distance);
-                //Step 8
-                double srcCol = (colP0 + Math.cos(newAngle) * distance);
-
-
-				int[] updatedValues = checkRowColValues(srcRow, srcCol, imagePixels);
-				srcRow = updatedValues[0];
-				srcCol = updatedValues[1];
-				
-                destination[destRow][destCol] = imagePixels[srcRow][srcCol];
-            }
-        }
-        updateImage(destination);*/
 		
 		//What if we reuse twist? Think of the unit circle
 		twistEffect(imagePixels, rowP0, colP0, normFactor, -Math.PI / 2.0);
@@ -248,42 +180,7 @@ public class IWarp {
 	 * TODO: Implement and document this method
 	 */
 	public static void pinchEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor) {
-		/*int row=0, col=0, destRow = 0,destCol=0;
-        Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
-
-        for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[destRow].length; destCol++) {
-                //Code here
-                //Step 1
-                double maxDistDelta = -0.5;
-                //Step 3
-                double distance = (int)Math.round(Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol)));
-                //Step 4
-                double weight = Math.pow(2,(-distance/normFactor));
-                //Step 5
-                double angle = Math.atan2(destRow - rowP0, destCol - colP0);
-                //Step 6
-                double deltaDistance = maxDistDelta * distance;
-                //Step 7
-                double weightedDistance = distance - (weight * deltaDistance);
-                //Step 8
-                int srcRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
-                //Step 9
-                int srcCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
-
-                //Rewrite a better if srcCol and srcRow
-
-				int[] updatedValues = checkRowColValues(srcRow, srcCol, imagePixels);
-				srcRow = updatedValues[0];
-				srcCol = updatedValues[1];
-				
-                destination[destRow][destCol] = imagePixels[srcRow][srcCol];
-            }
-        }
-        updateImage(destination);*/
 		zoomEffect(imagePixels, rowP0, colP0, normFactor, -0.5);
-
-
     }
 	
 
@@ -291,49 +188,7 @@ public class IWarp {
 	 * TODO: Implement and document this method
 	 */
 	public static void bulgeEffect(Color[][] imagePixels, int rowP0, int colP0, double normFactor) {
-		/*double row=0, col=0, destRow = 0,destCol=0;
-        Color[][] destination = new Color[imagePixels.length][imagePixels[0].length];
-
-        for (destRow = 0; destRow < imagePixels.length; destRow++) {
-            for (destCol = 0; destCol < imagePixels[0].length; destCol++) {
-                //Code here
-                //Step 1
-                double maxDistDelta = 0.5;
-                //Step 3
-                double distance = Math.sqrt((rowP0 - destRow) * (rowP0 - destRow) + (colP0 - destCol) * (colP0 - destCol));
-                //Step 4
-                double weight = Math.pow(2, (-distance / normFactor));
-                //Step 5
-                double angle = Math.atan2(destRow - rowP0, destCol - colP0);
-                //Step 6
-                double deltaDistance = maxDistDelta * distance;
-                //Step 7
-                double weightedDistance = distance - (weight * deltaDistance);
-                //Step 8
-                int scrRow = (int) (rowP0 + Math.sin(angle) * weightedDistance);
-                //Step 9
-                int scrCol = (int) (colP0 + Math.cos(angle) * weightedDistance);
-                if (scrRow < 0) {
-                    scrRow = 0;
-                }
-                if (imagePixels.length - 1 > scrRow) {
-                    scrRow = imagePixels.length;
-                }
-                if (scrCol < 0) {
-                    scrCol = 0;
-                }
-                if (imagePixels.length - 1 >= scrCol) {
-                    scrRow = imagePixels.length;
-                }
-
-                destination[(int) destRow][(int) destCol] = imagePixels[scrRow][scrCol];
-
-
-            }
-        }
-        updateImage(destination);*/
 		zoomEffect(imagePixels, rowP0, colP0, normFactor, 0.5);
-
     }
 
 
