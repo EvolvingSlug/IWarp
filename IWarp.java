@@ -393,21 +393,21 @@ public class IWarp {
 				int rowP0 = Integer.parseInt(tokens[1]);
 				int colP0 = Integer.parseInt(tokens[2]);
 				switch(tokens[0]) {
-					case "LIQUIFY":
+					case "WE1":
 						int rowP1 = Integer.parseInt(tokens[3]);
 						int colP1 = Integer.parseInt(tokens[4]);
 						liquifyEffect(workingImage, rowP0, colP0, rowP1, colP1, normFactor);
 						break;
-					case "TWIST_LEFT":
+					case "WE2":
 						twistLeftEffect(workingImage, rowP0, colP0, normFactor);
 						break;
-					case "TWIST_RIGHT":
+					case "WE3":
 						twistRightEffect(workingImage, rowP0, colP0, normFactor);
 						break;
-					case "PINCH":
+					case "WE4":
 						pinchEffect(workingImage, rowP0, colP0, normFactor);
 						break;
-					case "BULGE":
+					case "WE5":
 						bulgeEffect(workingImage, rowP0, colP0, normFactor);
 						break;
 				}
